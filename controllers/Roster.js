@@ -51,6 +51,15 @@ exports.getAllCharacterFromGame = (req, res, next) => {
         }))
 }
 
+exports.getCharactersByName = (req, res, next) => {
+    Character.find({
+        'name' : {$regex: req.params.id, $options: "i"}
+    }).populate("game")
+    .then(characters => 
+        res.status(200).json(characters))
+    .catch(error => res.status(404).json({error}))
+}
+
 exports.updateCharacter = (req, res, next) => {
     Character.updateOne({
         _id: req.params.id

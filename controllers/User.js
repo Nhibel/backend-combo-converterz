@@ -94,15 +94,13 @@ exports.me = (req, res, next) => {
 };
 
 exports.verifyToken = (req, res, next) => {
-  console.log(req.body.user);
-  console.log(req.body.token);
-
   var secret = config.secret;
   try {
     const token = req.body.token;
     const decodedToken = jwt.verify(token, secret);
     const userId = decodedToken.userId;
     if (req.body.user._id && req.body.user._id !== userId) {
+      console.log('erreur dans le throw', req.body.user._id, userId)
       throw 'Invalid user ID';
     } else {
       return res.status(200).json({
@@ -111,6 +109,7 @@ exports.verifyToken = (req, res, next) => {
       });
     }
   } catch (error) {
+    console.log('erreur dans le catch(error)', error)
     return res.status(401).json({ error });
   }
 };

@@ -5,6 +5,7 @@ const rosterCtrl = require('../controllers/Roster')
 
 router.get("/", auth, rosterCtrl.getAllCharacters);
 router.get("/:id", auth, rosterCtrl.getOneCharacter);
+router.get("/search/:id", auth, rosterCtrl.getCharactersByName)
 router.post("/charactersFromGame", auth, rosterCtrl.getAllCharacterFromGame);
 router.post('/insert-many', auth, rosterCtrl.createManyCharacters);
 router.post('/', auth, rosterCtrl.createCharacter);
