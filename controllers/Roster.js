@@ -23,8 +23,10 @@ exports.createManyCharacters = (req, res, next) => {
 }
 
 exports.getAllCharacters = (req, res, next) => {
-    Character.find()
-        .then(characters => res.status(200).json(characters))
+    Character.find({}, {name:1}, {_id:1}).populate("game", "name")
+        .then(
+            characters => 
+            res.status(200).json({characters}))
         .catch(error => res.status(400).json({
             error
         }))
